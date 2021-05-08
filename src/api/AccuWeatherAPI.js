@@ -3,8 +3,19 @@ import axios from 'axios';
 export const getLocationAutocomplete = async (text) => {
   try {
     return await axios.get('http://dataservice.accuweather.com/locations/v1/cities/autocomplete', {
-      params: { apikey: process.env.REACT_APP_WEATHER_API_KEY },
-      q: text,
+      params: { apikey: process.env.REACT_APP_WEATHER_API_KEY, q: text },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getLocationByCoordinates = async (coordinates) => {
+  try {
+    if (!coordinates) return;
+
+    return await axios.get('http://dataservice.accuweather.com/locations/v1/cities/geoposition/search', {
+      params: { apikey: process.env.REACT_APP_WEATHER_API_KEY, q: `${coordinates.lat},${coordinates.lon}` },
     });
   } catch (err) {
     console.log(err);
@@ -14,7 +25,7 @@ export const getLocationAutocomplete = async (text) => {
 export const getCurrentWeather = async (locationKey) => {
   try {
     return await axios.get(`http://dataservice.accuweather.com/currentconditions/v1/${locationKey}`, {
-      params: { apikey: process.env.REACT_APP_WEATHER_API },
+      params: { apikey: process.env.REACT_APP_WEATHER_API_KEY },
     });
   } catch (err) {
     console.log(err);

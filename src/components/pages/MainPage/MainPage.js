@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Paper, Grid, Button, Typography } from '@material-ui/core';
 import clsx from 'clsx';
-import SearchBar from 'material-ui-search-bar';
+// import SearchBar from 'material-ui-search-bar';
+import SearchBar from '../../SearchBar/SearchBar';
 import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import city1 from '../../../assets/city1.jpg';
 import WeatherCard from '../../WeatherCard/WeatherCard';
+import WeatherWidget from '../../WeatherWidget/WeatherWidget';
+import { updateLocation, updateCurrentLocation } from '../../../redux/action/locationAction';
+import { updateWeather, updateFiveDaysForecast } from '../../../redux/action/weatherAction';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    marginTop: 'calc(72px + 2%)', //header height + some more margin
+    marginTop: 'calc(72px)', //header height + some more margin
   },
   mainContainer: {
     margin: '0 1rem',
@@ -31,13 +36,23 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
   searchContainer: {
-    padding: '0 1rem',
+    margin: '1rem 1rem',
     [theme.breakpoints.up('sm')]: {
-      padding: '0 15%',
+      margin: '2rem 15%',
     },
     [theme.breakpoints.up('xl')]: {
-      padding: '0 25%',
+      margin: '3rem 25%',
     },
+    // padding: '1rem 1rem',
+    // // margin: '1rem 0',
+    // [theme.breakpoints.up('sm')]: {
+    //   // margin: '2% 0',
+    //   padding: '2% 15%',
+    // },
+    // [theme.breakpoints.up('xl')]: {
+    //   // margin: '3% 0',
+    //   padding: '2% 25%',
+    // },
   },
   search: {
     background: '#393e46',
@@ -77,46 +92,26 @@ const useStyles = makeStyles((theme) => ({
 
 const MainPage = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  const onLocationChange = (location) => {
+    dispatch(updateLocation(location));
+  };
+
+  useEffect(() => {
+    dispatch(updateCurrentLocation());
+  }, []);
 
   return (
     <div className={classes.root}>
-      <Grid container direction='column' spacing={3}>
+      <Grid container direction='column' spacing={1}>
         <Grid item>
           <div className={classes.searchContainer}>
-            <SearchBar classes={{ root: classes.search, icon: classes.searchIcon, input: classes.searchInput }} />
+            <SearchBar onLocationChange={onLocationChange} />
           </div>
         </Grid>
         <Grid item container direction='column'>
-          <Paper className={classes.mainContainer}>
-            <Grid item justify='space-between' container>
-              <Grid item>
-                <div className={classes.cityDataWrapper}>
-                  <div className={classes.cityImageWrapper}>
-                    {/* <img src={city1} width='100%' height='100%' alt='city'></img> */}
-                  </div>
-                  <div className={classes.cityData}>
-                    <Typography variant='h4'>City Name</Typography>
-                    <Typography variant='h3'> 39.9 c</Typography>
-                  </div>
-                </div>
-              </Grid>
-              <Grid item>
-                <Button variant='contained'>Add to favorites</Button>
-              </Grid>
-            </Grid>
-            <Grid item justify='center'>
-              <Typography variant='h1'>Clouds</Typography>
-            </Grid>
-            <Grid item spacing={5}>
-              <div className={classes.cardsContainer}>
-                <WeatherCard />
-                <WeatherCard />
-                <WeatherCard />
-                <WeatherCard />
-                <WeatherCard />
-              </div>
-            </Grid>
-          </Paper>
+          <WeatherWidget />
         </Grid>
       </Grid>
     </div>

@@ -5,24 +5,29 @@ const theme = createMuiTheme({
     background: {
       dark: '#222329',
       light: '#D9D9D9',
-      header: '#000',
-      paper: '#222329',
+      header: '#fff',
+      toggle: '#222329',
+      paper: '#fff',
     },
     primary: {
       main: '#46BBB0',
     },
     secondary: {
-      main: '#D1157D',
+      main: '#890596',
     },
     text: {
-      primary: '#D9D9D9',
-      secondary: '#A5A4BF',
+      primary: '#1b1a17',
+      secondary: '##646769',
     },
     title: {
       primary: '#fff',
       secondary: '#46BBB0',
       largeTitle: '#46BBB0',
     },
+  },
+  toggle: {
+    thumbOnColor: 'blue',
+    trackOnColor: 'green',
   },
 });
 

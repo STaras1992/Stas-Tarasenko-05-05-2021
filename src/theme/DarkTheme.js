@@ -5,6 +5,7 @@ const theme = createMuiTheme({
     background: {
       dark: '#000',
       light: '#dbe2ef',
+      toggle: '#000',
       header: '#434343',
       paper: '#000',
     },
@@ -23,6 +24,10 @@ const theme = createMuiTheme({
       secondary: '#46BBB0',
       largeTitle: '#46BBB0',
     },
+  },
+  toggle: {
+    thumbOnColor: 'yellow',
+    trackOnColor: 'red',
   },
 });
 
