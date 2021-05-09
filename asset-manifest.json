@@ -1,0 +1,35 @@
+{
+  "files": {
+    "main.css": "/Stas-Tarasenko-05-05-2021/static/css/main.0bb99ad6.chunk.css",
+    "main.js": "/Stas-Tarasenko-05-05-2021/static/js/main.f5ee4007.chunk.js",
+    "main.js.map": "/Stas-Tarasenko-05-05-2021/static/js/main.f5ee4007.chunk.js.map",
+    "runtime-main.js": "/Stas-Tarasenko-05-05-2021/static/js/runtime-main.624a6759.js",
+    "runtime-main.js.map": "/Stas-Tarasenko-05-05-2021/static/js/runtime-main.624a6759.js.map",
+    "static/js/2.da151cbf.chunk.js": "/Stas-Tarasenko-05-05-2021/static/js/2.da151cbf.chunk.js",
+    "static/js/2.da151cbf.chunk.js.map": "/Stas-Tarasenko-05-05-2021/static/js/2.da151cbf.chunk.js.map",
+    "index.html": "/Stas-Tarasenko-05-05-2021/index.html",
+    "static/css/main.0bb99ad6.chunk.css.map": "/Stas-Tarasenko-05-05-2021/static/css/main.0bb99ad6.chunk.css.map",
+    "static/js/2.da151cbf.chunk.js.LICENSE.txt": "/Stas-Tarasenko-05-05-2021/static/js/2.da151cbf.chunk.js.LICENSE.txt",
+    "static/media/App.css": "/Stas-Tarasenko-05-05-2021/static/media/back5.4fa5b153.jpg",
+    "static/media/city1.5ebf0cb6.jpg": "/Stas-Tarasenko-05-05-2021/static/media/city1.5ebf0cb6.jpg",
+    "static/media/clear1.8d4bdaf8.png": "/Stas-Tarasenko-05-05-2021/static/media/clear1.8d4bdaf8.png",
+    "static/media/clear2.e9b80fe7.png": "/Stas-Tarasenko-05-05-2021/static/media/clear2.e9b80fe7.png",
+    "static/media/clouds1.c4983350.png": "/Stas-Tarasenko-05-05-2021/static/media/clouds1.c4983350.png",
+    "static/media/clouds2.bbe51368.png": "/Stas-Tarasenko-05-05-2021/static/media/clouds2.bbe51368.png",
+    "static/media/cold.48b7ced3.png": "/Stas-Tarasenko-05-05-2021/static/media/cold.48b7ced3.png",
+    "static/media/hot.ca4ec20b.png": "/Stas-Tarasenko-05-05-2021/static/media/hot.ca4ec20b.png",
+    "static/media/rain1.952e9bac.png": "/Stas-Tarasenko-05-05-2021/static/media/rain1.952e9bac.png",
+    "static/media/rain2.3201c86e.png": "/Stas-Tarasenko-05-05-2021/static/media/rain2.3201c86e.png",
+    "static/media/rain3.1f4dfbcd.png": "/Stas-Tarasenko-05-05-2021/static/media/rain3.1f4dfbcd.png",
+    "static/media/snow1.51659dbb.png": "/Stas-Tarasenko-05-05-2021/static/media/snow1.51659dbb.png",
+    "static/media/snow2.740ac494.png": "/Stas-Tarasenko-05-05-2021/static/media/snow2.740ac494.png",
+    "static/media/sun1.9f8ef65d.png": "/Stas-Tarasenko-05-05-2021/static/media/sun1.9f8ef65d.png",
+    "static/media/sun2.483d912e.png": "/Stas-Tarasenko-05-05-2021/static/media/sun2.483d912e.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.624a6759.js",
+    "static/js/2.da151cbf.chunk.js",
+    "static/css/main.0bb99ad6.chunk.css",
+    "static/js/main.f5ee4007.chunk.js"
+  ]
+}
