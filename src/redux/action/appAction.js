@@ -1,5 +1,4 @@
 import { SET_THEME, SET_TEMPERATURE_UNITS } from '../actionTypes';
-import { setError } from './errorAction';
 
 const changeTheme = (theme) => ({ type: SET_THEME, payload: theme });
 const changeTemperature = (units) => ({ type: SET_TEMPERATURE_UNITS, payload: units });

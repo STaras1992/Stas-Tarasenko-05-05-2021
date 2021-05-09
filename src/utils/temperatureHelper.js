@@ -3,6 +3,7 @@ export const fToC = (fTemperature) => {
 };
 
 export const calcAverageTemperature = (min = 0, max = 100, units = 'c') => {
-  const average = (min + max) / 2;
-  return units === 'f' ? average : fToC(average);
+  let average = (min + max) / 2;
+  average = units === 'f' ? average : fToC(average);
+  return Number(Math.round(average));
 };

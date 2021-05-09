@@ -1,4 +1,4 @@
-import { SET_LOCATION, SET_ERROR, SET_IS_LOADING, SET_CURRENT_LOCATION } from '../actionTypes.js';
+import { SET_LOCATION, SET_IS_LOADING, SET_CURRENT_LOCATION } from '../actionTypes.js';
 
 const defaultState = {
   isLoading: false,

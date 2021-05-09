@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link as RouterLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { AppBar, Button, Hidden, IconButton, Typography, Toolbar, makeStyles } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
+import { AppBar, Hidden, Typography, Toolbar, makeStyles } from '@material-ui/core';
 import clsx from 'clsx';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
@@ -86,7 +85,7 @@ const Header = ({ isLoggedIn, onMobileNavOpen, ...rest }) => {
     <AppBar className={classes.root} elevation={0} {...rest}>
       <Toolbar className={classes.toolbar}>
         <Hidden smDown>
-          <RouterLink className={classes.logo} to='/'>
+          <NavLink className={classes.logo} to='/'>
             {/* <img alt='Logo' src={logo} /> */}
             <Typography variant='h4' color='primary'>
               Herolo
@@ -94,7 +93,7 @@ const Header = ({ isLoggedIn, onMobileNavOpen, ...rest }) => {
             <Typography variant='h4' color='secondary'>
               Weather
             </Typography>
-          </RouterLink>
+          </NavLink>
         </Hidden>
         <div className={classes.buttonsContainer}>
           <ToggleButtonGroup
@@ -113,18 +112,15 @@ const Header = ({ isLoggedIn, onMobileNavOpen, ...rest }) => {
             </ToggleButton>
           </ToggleButtonGroup>
           <div className={classes.routerLinksWrapper}>
-            <RouterLink
-              className={clsx(classes.routerLink, { [classes.activeLink]: location.pathname === '/' })}
-              to='/'
-            >
+            <NavLink className={clsx(classes.routerLink, { [classes.activeLink]: location.pathname === '/' })} to='/'>
               Main
-            </RouterLink>
-            <RouterLink
+            </NavLink>
+            <NavLink
               className={clsx(classes.routerLink, { [classes.activeLink]: location.pathname === '/favorites' })}
               to='/favorites'
             >
               Favorites
-            </RouterLink>
+            </NavLink>
           </div>
         </div>
       </Toolbar>

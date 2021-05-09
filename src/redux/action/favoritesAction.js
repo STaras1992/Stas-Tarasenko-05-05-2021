@@ -79,7 +79,7 @@ export const updateFavoriteLocation = (favoriteLocation) => async (dispatch) => 
   try {
     if (process.env.REACT_APP_WEATHER_NODE_ENV === 'production') {
       console.log('production');
-      const response = await getCurrentWeather(favoriteLocation.key);
+      const response = await getCurrentWeather(favoriteLocation?.key || favoriteLocation.location.key);
       console.log('response', response);
       dispatch(
         updateFavorite({
@@ -127,6 +127,7 @@ export const updateFavoriteLocation = (favoriteLocation) => async (dispatch) => 
 
 export const updateAllFavoriteLocations = (favoriteLocations) => async (dispatch) => {
   try {
+    console.log(favoriteLocations);
     favoriteLocations.forEach((location) => dispatch(updateFavoriteLocation(location)));
   } catch (err) {
     process.env.NODE_ENV === 'development' && console.log(err);

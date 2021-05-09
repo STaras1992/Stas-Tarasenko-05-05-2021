@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Paper, Grid, Button, Typography } from '@material-ui/core';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import PropTypes from 'prop-types';
 import city1 from '../../assets/city1.jpg';
 import WeatherCard from '../WeatherCard/WeatherCard';
 import ToggleButton from '@material-ui/lab/ToggleButton';
@@ -14,7 +13,6 @@ import { changeTemperatureUnits } from '../../redux/action/appAction';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    // marginTop: 'calc(72px + 2%)', //header height + some more margin
     minHeight: '60vh',
     display: 'flex',
     flexDirection: 'column',
@@ -38,17 +36,12 @@ const useStyles = makeStyles((theme) => ({
   cityDataWrapper: {
     height: '150px',
     display: 'flex',
-    // border: '3px solid',
-    // borderColor: theme.palette.secondary.main,
     [theme.breakpoints.up('md')]: {
-      height: '160px',
-    },
-    [theme.breakpoints.up('lg')]: {
       height: '170px',
     },
   },
   cityData: {
-    width: '60%',
+    width: '70%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
@@ -56,18 +49,12 @@ const useStyles = makeStyles((theme) => ({
     padding: '0 2rem',
   },
   cityImageWrapper: {
-    // width: '200px',
-    // height: '150px',
-    // width: '40%',
     width: '150px',
     padding: 'auto auto',
     backgroundImage: `url(${city1})`,
     backgroundSize: 'cover',
     [theme.breakpoints.up('sm')]: {
-      width: '250px',
-    },
-    [theme.breakpoints.up('md')]: {
-      width: '250px',
+      width: '200px',
     },
   },
   weatherText: {
@@ -94,7 +81,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   toggleButtonsWrapper: {
-    // border: '2px solid ',
     display: 'flex',
     justifyContent: 'flex-end',
     marginTop: '2rem',
@@ -192,18 +178,12 @@ const WeatherWidget = () => {
   };
 
   useEffect(() => {
+    console.log('SELECTED  LOCATION EFFECT', selectedLocation);
     if (selectedLocation) {
       dispatch(updateWeather(selectedLocation));
       dispatch(updateFiveDaysForecast(selectedLocation));
     }
   }, [selectedLocation]);
-
-  useEffect(() => {
-    if (myLocation) {
-      dispatch(updateWeather(myLocation));
-      dispatch(updateFiveDaysForecast(myLocation));
-    }
-  }, [myLocation]);
 
   useEffect(() => {
     prepareForecastItems();
@@ -222,6 +202,8 @@ const WeatherWidget = () => {
     if (isInitRender) return setIsInitRender(false);
     localStorage.setItem('favoriteLocations', JSON.stringify(favoriteLocations));
   }, [favoriteLocations]);
+
+  useEffect(() => {}, []);
 
   return (
     <Paper className={clsx(classes.paper, classes.root)}>

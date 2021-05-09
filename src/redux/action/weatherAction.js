@@ -1,7 +1,7 @@
 import { SET_WEATHER, SET_IS_LOADING, SET_FIVE_DAYS_FORECAST } from '../actionTypes';
 import { getCurrentWeather, getFiveDayForecast } from '../../api/AccuWeatherAPI';
 import { getDayTime } from '../../utils/dateHelper';
-import { fToC, calcAverageTemperature } from '../../utils/temperatureHelper';
+import { calcAverageTemperature } from '../../utils/temperatureHelper';
 import { setError } from './errorAction';
 
 const setWeather = (data) => ({ type: SET_WEATHER, payload: data });

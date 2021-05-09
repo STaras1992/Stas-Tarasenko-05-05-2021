@@ -1,9 +1,7 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Paper, Grid, Button, Typography } from '@material-ui/core';
+import { useSelector } from 'react-redux';
+import { Paper, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import clouds from '../../assets/clouds.png';
-import propTypes from 'prop-types';
 import getWeatherIcon from '../../utils/getWeatherIcon';
 import { getWeekDay } from '../../utils/dateHelper';
 
@@ -22,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '8px',
     justifyContent: 'space-around',
     [theme.breakpoints.up('sm')]: {
-      width: '33%',
+      width: '30%',
     },
     [theme.breakpoints.up('md')]: {
       width: '18%',

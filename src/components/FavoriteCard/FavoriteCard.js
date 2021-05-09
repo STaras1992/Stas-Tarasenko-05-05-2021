@@ -1,10 +1,7 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Paper, Grid, Button, Typography } from '@material-ui/core';
+import { useSelector } from 'react-redux';
+import { Paper, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import clouds from '../../assets/clouds.png';
-import propTypes from 'prop-types';
-import { getWeekDay } from '../../utils/dateHelper';
 import getWeatherIcon from '../../utils/getWeatherIcon';
 
 const useStyles = makeStyles((theme) => ({
@@ -30,9 +27,9 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('xl')]: {
       width: '15%',
     },
-    transition: 'all 0.4s ease-in-out',
+    transition: 'all 0.3s ease-in-out',
     '&:hover': {
-      transition: 'all 0.4s ease-in-out 0.3s',
+      transition: 'all 0.3s ease-in-out',
       transform: 'scale(1.1)',
     },
   },

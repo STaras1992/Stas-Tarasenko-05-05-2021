@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { Paper, Grid, Button, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import FavoriteCard from '../../FavoriteCard/FavoriteCard';
-import PropTypes from 'prop-types';
 import { updateLocation } from '../../../redux/action/locationAction';
-import { addFavoriteLocation, removeFavoriteLocation } from '../../../redux/action/favoritesAction';
+import { updateAllFavoriteLocations } from '../../../redux/action/favoritesAction';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -78,7 +77,8 @@ const FavoritesPage = () => {
   }, [favoriteLocations]);
 
   useEffect(() => {
-    prepareCards();
+    console.log(favoriteLocations);
+    favoriteLocations.length > 0 && dispatch(updateAllFavoriteLocations(favoriteLocations));
   }, []);
 
   return (

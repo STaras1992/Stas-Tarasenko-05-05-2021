@@ -1,4 +1,4 @@
-import { SET_LOCATION, SET_ERROR, SET_IS_LOADING, SET_CURRENT_LOCATION } from '../actionTypes';
+import { SET_LOCATION, SET_IS_LOADING, SET_CURRENT_LOCATION } from '../actionTypes';
 import { getMyLocation } from '../../utils/geolocation';
 import { setError } from './errorAction';
 import { getLocationByCoordinates } from '../../api/AccuWeatherAPI';
@@ -10,8 +10,6 @@ const setIsLoading = (isLoading) => ({ type: SET_IS_LOADING, payload: isLoading 
 export const updateLocation = (location) => async (dispatch) => {
   try {
     dispatch(setIsLoading(true));
-    // const response = await weatherApi.getLocationAutocomplete(text);
-    // dispatch(setLocation(response.data));
     dispatch(setLocation(location));
     dispatch(setIsLoading(false));
   } catch (err) {
@@ -48,9 +46,11 @@ export const updateCurrentLocation = () => async (dispatch) => {
       console.log('response', response);
       if (!response.data || response.data.length === 0) return;
       dispatch(setCurrentLocation({ key: response.data.Key, name: response.data.AdministrativeArea.LocalizedName }));
+      dispatch(updateLocation({ key: response.data.Key, name: response.data.AdministrativeArea.LocalizedName }));
     } else {
       console.log('development');
       dispatch(setCurrentLocation({ key: '215805', name: 'Tel aviv' }));
+      dispatch(updateLocation({ key: '215805', name: 'Tel aviv' }));
     }
   } catch (err) {
     process.env.NODE_ENV === 'development' && console.log(err);

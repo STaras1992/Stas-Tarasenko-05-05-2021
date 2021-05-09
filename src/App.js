@@ -9,6 +9,7 @@ import DarkTheme from './theme/DarkTheme';
 import LightTheme from './theme/LightTheme';
 import { loadFavoriteLocations } from './redux/action/favoritesAction';
 import { loadTheme } from './redux/action/appAction';
+import { updateCurrentLocation } from './redux/action/locationAction';
 import './App.css';
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
   useEffect(() => {
     dispatch(loadFavoriteLocations());
     dispatch(loadTheme());
+    dispatch(updateCurrentLocation());
   }, []);
 
   return (

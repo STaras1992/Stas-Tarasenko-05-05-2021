@@ -10,8 +10,8 @@ const theme = createMuiTheme({
         primary: '#fff',
         secondary: '#fb3640',
       },
-      card: '#290149', //'#f3f4ed',
-      header: '#282846', //'#434343',
+      card: '#290149',
+      header: '#282846',
       paper: '#000',
     },
     primary: {
@@ -22,7 +22,7 @@ const theme = createMuiTheme({
     },
     text: {
       primary: '#f0f5f9',
-      secondary: '#1b262c', //'#c9d6df',
+      secondary: '#e1e5ea',
     },
     link: {
       primary: '#08d9d6',

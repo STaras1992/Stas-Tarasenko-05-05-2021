@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Paper, Grid, Button, Typography } from '@material-ui/core';
-import clsx from 'clsx';
-// import SearchBar from 'material-ui-search-bar';
+import { Grid } from '@material-ui/core';
 import SearchBar from '../../SearchBar/SearchBar';
 import { makeStyles } from '@material-ui/core/styles';
-import PropTypes from 'prop-types';
 import city1 from '../../../assets/city1.jpg';
-import WeatherCard from '../../WeatherCard/WeatherCard';
 import WeatherWidget from '../../WeatherWidget/WeatherWidget';
-import { updateLocation, updateCurrentLocation } from '../../../redux/action/locationAction';
+import { updateLocation } from '../../../redux/action/locationAction';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '../../MuiAlert/MuiAlert';
 
@@ -48,7 +44,6 @@ const useStyles = makeStyles((theme) => ({
   },
   search: {
     background: '#393e46',
-    // border: '1px solid #000',
     borderRadius: '15px',
   },
   searchInput: {
@@ -70,7 +65,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundSize: 'cover',
   },
   cardsContainer: {
-    // width: '80%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-around',
@@ -95,10 +89,6 @@ const MainPage = () => {
   const handleAlertClose = () => {
     setShowError(false);
   };
-
-  useEffect(() => {
-    dispatch(updateCurrentLocation());
-  }, []);
 
   useEffect(() => {
     if (error && !showError) setShowError(true);
