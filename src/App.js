@@ -13,7 +13,6 @@ import { updateCurrentLocation } from './redux/action/locationAction';
 import './App.css';
 
 function App() {
-  console.log('version4');
   const dispatch = useDispatch();
   const currentTheme = useSelector((state) => state.app.theme);
 
