@@ -12,8 +12,6 @@ export const getLocationAutocomplete = async (text) => {
 
 export const getLocationByCoordinates = async (coordinates) => {
   try {
-    if (!coordinates) return;
-
     return await axios.get('http://dataservice.accuweather.com/locations/v1/cities/geoposition/search', {
       params: { apikey: process.env.REACT_APP_WEATHER_API_KEY, q: `${coordinates.lat},${coordinates.lon}` },
     });

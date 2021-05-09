@@ -1,5 +1,6 @@
 export const SET_IS_LOADING = 'SET_IS_LOADING';
 export const SET_ERROR = 'SET_ERROR';
+export const CLEAR_ERROR = 'CLEAR_ERROR';
 export const SET_LOCATION = 'SET_LOCATION';
 export const SET_CURRENT_LOCATION = 'SET_CURRENT_LOCATION';
 export const SET_WEATHER = 'SET_WEATHER';

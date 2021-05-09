@@ -9,7 +9,6 @@ import {
 
 const defaultState = {
   isLoading: false,
-  errorMessage: null,
   favoriteLocations: [],
 };
 
@@ -40,8 +39,6 @@ const favoriteReducer = (state = defaultState, action) => {
       };
     case LOAD_FAVORITE_LOCATIONS:
       return { ...state, favoriteLocations: [...action.payload] };
-    case SET_ERROR:
-      return { ...state };
     case SET_IS_LOADING:
       return {
         ...state,

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { AppBar, Button, Hidden, IconButton, Typography, Toolbar, makeStyles } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
+import clsx from 'clsx';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import { changeCurrentTheme } from '../../redux/action/appAction';
@@ -16,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
   toolbar: {
     display: 'flex',
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
   buttonsContainer: {
     display: 'flex',
@@ -23,9 +25,16 @@ const useStyles = makeStyles((theme) => ({
       minWidth: '100px',
       margin: '0.5rem',
     },
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+      justifyContent: 'space-between',
+    },
   },
   logo: {
+    display: 'flex',
+    alignItems: 'center',
     textDecoration: 'none',
+    fontFamily: 'Fredoka One, cursive',
   },
   icon: {
     color: '#fff',
@@ -47,11 +56,26 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: theme.palette.primary.main,
     },
   },
+  routerLinksWrapper: {
+    display: 'flex',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  routerLink: {
+    color: theme.palette.link.primary,
+    marginRight: '1rem',
+    textDecoration: 'none',
+    textTransform: 'none',
+  },
+  activeLink: {
+    color: theme.palette.link.secondary,
+  },
 }));
 
 const Header = ({ isLoggedIn, onMobileNavOpen, ...rest }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const location = useLocation();
   const currentTheme = useSelector((state) => state.app.theme);
 
   const handleChangeTheme = (e, value) => {
@@ -61,11 +85,17 @@ const Header = ({ isLoggedIn, onMobileNavOpen, ...rest }) => {
   return (
     <AppBar className={classes.root} elevation={0} {...rest}>
       <Toolbar className={classes.toolbar}>
-        <RouterLink className={classes.logo} to='/'>
-          {/* <img alt='Logo' src={logo} /> */}
-          <Typography variant='h3'>Herolo Weather</Typography>
-        </RouterLink>
-        {/* <Hidden smDown> */}
+        <Hidden smDown>
+          <RouterLink className={classes.logo} to='/'>
+            {/* <img alt='Logo' src={logo} /> */}
+            <Typography variant='h4' color='primary'>
+              Herolo
+            </Typography>
+            <Typography variant='h4' color='secondary'>
+              Weather
+            </Typography>
+          </RouterLink>
+        </Hidden>
         <div className={classes.buttonsContainer}>
           <ToggleButtonGroup
             className={classes.toggleButtonsWrapper}
@@ -82,19 +112,21 @@ const Header = ({ isLoggedIn, onMobileNavOpen, ...rest }) => {
               Dark
             </ToggleButton>
           </ToggleButtonGroup>
-          <RouterLink to='/'>
-            <Button variant='text'>Main</Button>
-          </RouterLink>
-          <RouterLink to='/favorites'>
-            <Button variant='text'>Favorites</Button>
-          </RouterLink>
+          <div className={classes.routerLinksWrapper}>
+            <RouterLink
+              className={clsx(classes.routerLink, { [classes.activeLink]: location.pathname === '/' })}
+              to='/'
+            >
+              Main
+            </RouterLink>
+            <RouterLink
+              className={clsx(classes.routerLink, { [classes.activeLink]: location.pathname === '/favorites' })}
+              to='/favorites'
+            >
+              Favorites
+            </RouterLink>
+          </div>
         </div>
-        {/* </Hidden> */}
-        {/* <Hidden mdUp>
-          <IconButton color='secondary' onClick={onMobileNavOpen}>
-            <MenuIcon />
-          </IconButton>
-        </Hidden> */}
       </Toolbar>
     </AppBar>
   );

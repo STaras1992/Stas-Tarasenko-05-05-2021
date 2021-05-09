@@ -2,7 +2,7 @@ import { SET_THEME, SET_TEMPERATURE_UNITS } from '../actionTypes.js';
 
 const defaultState = {
   theme: 'light',
-  temperatureUnits: 'Celsius',
+  temperatureUnits: 'celsius',
 };
 
 const appReducer = (state = defaultState, action) => {

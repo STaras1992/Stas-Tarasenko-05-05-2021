@@ -10,11 +10,13 @@ import city1 from '../../../assets/city1.jpg';
 import WeatherCard from '../../WeatherCard/WeatherCard';
 import WeatherWidget from '../../WeatherWidget/WeatherWidget';
 import { updateLocation, updateCurrentLocation } from '../../../redux/action/locationAction';
-import { updateWeather, updateFiveDaysForecast } from '../../../redux/action/weatherAction';
+import Snackbar from '@material-ui/core/Snackbar';
+import Alert from '../../MuiAlert/MuiAlert';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     marginTop: 'calc(72px)', //header height + some more margin
+    transition: 'all 0.5s ease-in-out',
   },
   mainContainer: {
     margin: '0 1rem',
@@ -43,16 +45,6 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('xl')]: {
       margin: '3rem 25%',
     },
-    // padding: '1rem 1rem',
-    // // margin: '1rem 0',
-    // [theme.breakpoints.up('sm')]: {
-    //   // margin: '2% 0',
-    //   padding: '2% 15%',
-    // },
-    // [theme.breakpoints.up('xl')]: {
-    //   // margin: '3% 0',
-    //   padding: '2% 25%',
-    // },
   },
   search: {
     background: '#393e46',
@@ -93,14 +85,24 @@ const useStyles = makeStyles((theme) => ({
 const MainPage = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const error = useSelector((state) => state.error.error);
+  const [showError, setShowError] = useState(false);
 
   const onLocationChange = (location) => {
     dispatch(updateLocation(location));
   };
 
+  const handleAlertClose = () => {
+    setShowError(false);
+  };
+
   useEffect(() => {
     dispatch(updateCurrentLocation());
   }, []);
+
+  useEffect(() => {
+    if (error && !showError) setShowError(true);
+  }, [error]);
 
   return (
     <div className={classes.root}>
@@ -114,6 +116,13 @@ const MainPage = () => {
           <WeatherWidget />
         </Grid>
       </Grid>
+      {showError && (
+        <Snackbar open={showError} autoHideDuration={2000} onClose={handleAlertClose}>
+          <Alert onClose={handleAlertClose} severity='error'>
+            {error}
+          </Alert>
+        </Snackbar>
+      )}
     </div>
   );
 };

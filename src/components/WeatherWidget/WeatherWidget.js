@@ -15,8 +15,10 @@ import { changeTemperatureUnits } from '../../redux/action/appAction';
 const useStyles = makeStyles((theme) => ({
   root: {
     // marginTop: 'calc(72px + 2%)', //header height + some more margin
-  },
-  mainContainer: {
+    minHeight: '60vh',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
     margin: '0 1rem',
     padding: '1rem',
     [theme.breakpoints.up('sm')]: {
@@ -30,16 +32,14 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   paper: {
-    padding: theme.spacing(2),
+    boxShadow: theme.shadow.primary,
     background: theme.palette.background.paper,
-    color: theme.palette.text.secondary,
-    justifyContent: 'center',
   },
   cityDataWrapper: {
     height: '150px',
     display: 'flex',
-    border: '3px solid',
-    borderColor: theme.palette.secondary.main,
+    // border: '3px solid',
+    // borderColor: theme.palette.secondary.main,
     [theme.breakpoints.up('md')]: {
       height: '160px',
     },
@@ -51,14 +51,15 @@ const useStyles = makeStyles((theme) => ({
     width: '60%',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    // padding: '1rem 2rem',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    padding: '0 2rem',
   },
   cityImageWrapper: {
     // width: '200px',
     // height: '150px',
     // width: '40%',
+    width: '150px',
     padding: 'auto auto',
     backgroundImage: `url(${city1})`,
     backgroundSize: 'cover',
@@ -71,15 +72,24 @@ const useStyles = makeStyles((theme) => ({
   },
   weatherText: {
     margin: '3rem 0',
+    '& .MuiTypography-root': {
+      display: 'inline-block',
+      fontFamily: 'Fredoka One, cursive',
+      transition: 'all 0.5s ease-in-out',
+      '&:hover': {
+        transition: 'all 0.5s ease-in-out 0.2s',
+        transform: 'rotateX(360deg) scale(1.5)',
+      },
+    },
   },
   cardsContainer: {
-    // width: '80%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-around',
     alignItems: 'center',
     [theme.breakpoints.up('sm')]: {
       flexDirection: 'row',
+      flexWrap: 'wrap',
       width: '100%',
     },
   },
@@ -106,6 +116,41 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('md')]: {
       justifyContent: 'flex-end',
       alignItems: 'flex-start',
+    },
+  },
+  favoriteButton: {
+    backgroundColor: theme.palette.background.button.primary,
+    boxShadow: theme.shadow.button,
+    border: '1px solid #fb3640',
+    transition: 'all 0.3s ease-in-out',
+    '&:hover': {
+      borderRadius: '8px',
+      transition: 'all 0.3s ease-in-out',
+      transform: 'scale(1.1)',
+      backgroundColor: theme.palette.background.button.secondary,
+    },
+  },
+  locationTitle: {
+    fontWeight: 500,
+    fontSize: '1.8rem',
+    [theme.breakpoints.up('lg')]: {
+      fontSize: '2.1rem',
+    },
+    [theme.breakpoints.up('xl')]: {
+      fontSize: '2.3rem',
+    },
+  },
+  temperatureTitle: {
+    fontWeight: 600,
+    fontSize: '2.3rem',
+    [theme.breakpoints.up('md')]: {
+      fontSize: '2.4rem',
+    },
+    [theme.breakpoints.up('lg')]: {
+      fontSize: '2.8rem',
+    },
+    [theme.breakpoints.up('xl')]: {
+      fontSize: '3.0rem',
     },
   },
 }));
@@ -179,24 +224,30 @@ const WeatherWidget = () => {
   }, [favoriteLocations]);
 
   return (
-    <Paper className={classes.mainContainer}>
+    <Paper className={clsx(classes.paper, classes.root)}>
       <Grid item container justify='space-between'>
         <Grid item xs={12} md={6} lg={4}>
           <div className={classes.cityDataWrapper}>
             <div className={classes.cityImageWrapper} />
             <div className={classes.cityData}>
-              <Typography variant='h4'>{locationWeather?.location?.name}</Typography>
-              <Typography variant='h4'>{locationWeather?.temperature?.c || 0} C</Typography>
+              <Typography className={classes.locationTitle} variant='h4'>
+                {locationWeather?.location?.name}
+              </Typography>
+              <Typography className={classes.temperatureTitle} variant='h4'>
+                {temperatureUnits === 'fahrenheit'
+                  ? `${locationWeather?.temperature?.f}\u00B0F`
+                  : `${locationWeather?.temperature?.c}\u00B0C`}
+              </Typography>
             </div>
           </div>
         </Grid>
         <Grid className={classes.favoriteButtonContainer} md={6} lg={8} item>
           {isFavorite ? (
-            <Button variant='contained' onClick={handleRemoveFavorite}>
+            <Button className={classes.favoriteButton} variant='contained' onClick={handleRemoveFavorite}>
               Remove from favorites
             </Button>
           ) : (
-            <Button variant='contained' onClick={handleAddFavorite}>
+            <Button className={classes.favoriteButton} variant='contained' onClick={handleAddFavorite}>
               Add to favorites
             </Button>
           )}

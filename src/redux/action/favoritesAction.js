@@ -1,5 +1,4 @@
 import {
-  SET_ERROR,
   SET_IS_LOADING,
   ADD_FAVORITE_LOCATION,
   REMOVE_FAVORITE_LOCATION,
@@ -7,11 +6,11 @@ import {
   LOAD_FAVORITE_LOCATIONS,
 } from '../actionTypes';
 import { getCurrentWeather } from '../../api/AccuWeatherAPI';
+import { setError } from './errorAction';
 
 const addFavorite = (data) => ({ type: ADD_FAVORITE_LOCATION, payload: data });
 const removeFavorite = (location) => ({ type: REMOVE_FAVORITE_LOCATION, payload: location });
 const updateFavorite = (newData) => ({ type: UPDATE_FAVORITE_LOCATION, payload: newData });
-const setError = (errorMessage) => ({ type: SET_ERROR, payload: errorMessage });
 const setIsLoading = (isLoading) => ({ type: SET_IS_LOADING, payload: isLoading });
 const loadFavorites = (favorites) => ({ type: LOAD_FAVORITE_LOCATIONS, payload: favorites });
 /*
@@ -25,8 +24,23 @@ export const addFavoriteLocation = (data) => async (dispatch) => {
     dispatch(updateFavoriteLocation(data));
     setIsLoading(false);
   } catch (err) {
-    console.log(err);
-    setError(err);
+    process.env.NODE_ENV === 'development' && console.log(err);
+    switch (err?.response?.status) {
+      case 400:
+        dispatch(setError('Bad request!'));
+        break;
+      case 401:
+        dispatch(setError('API authorization failed!'));
+        break;
+      case 403:
+        dispatch(setError('Permission denied!'));
+        break;
+      case 404:
+        dispatch(setError('Data not found!'));
+        break;
+      default:
+        dispatch(setError('Something went wrong'));
+    }
   }
 };
 /*
@@ -39,8 +53,23 @@ export const removeFavoriteLocation = (favoriteLocation) => async (dispatch) => 
     dispatch(removeFavorite(favoriteLocation));
     setIsLoading(false);
   } catch (err) {
-    console.log(err);
-    dispatch(setError('ERROR'));
+    process.env.NODE_ENV === 'development' && console.log(err);
+    switch (err?.response?.status) {
+      case 400:
+        dispatch(setError('Bad request!'));
+        break;
+      case 401:
+        dispatch(setError('API authorization failed!'));
+        break;
+      case 403:
+        dispatch(setError('Permission denied!'));
+        break;
+      case 404:
+        dispatch(setError('Data not found!'));
+        break;
+      default:
+        dispatch(setError('Something went wrong'));
+    }
   }
 };
 /*
@@ -76,8 +105,23 @@ export const updateFavoriteLocation = (favoriteLocation) => async (dispatch) => 
       );
     }
   } catch (err) {
-    console.log(err);
-    dispatch(setError('ERROR'));
+    process.env.NODE_ENV === 'development' && console.log(err);
+    switch (err?.response?.status) {
+      case 400:
+        dispatch(setError('Bad request!'));
+        break;
+      case 401:
+        dispatch(setError('API authorization failed!'));
+        break;
+      case 403:
+        dispatch(setError('Permission denied!'));
+        break;
+      case 404:
+        dispatch(setError('Data not found!'));
+        break;
+      default:
+        dispatch(setError('Something went wrong'));
+    }
   }
 };
 
@@ -85,12 +129,47 @@ export const updateAllFavoriteLocations = (favoriteLocations) => async (dispatch
   try {
     favoriteLocations.forEach((location) => dispatch(updateFavoriteLocation(location)));
   } catch (err) {
-    console.log(err);
-    dispatch(setError('ERROR'));
+    process.env.NODE_ENV === 'development' && console.log(err);
+    switch (err?.response?.status) {
+      case 400:
+        dispatch(setError('Bad request!'));
+        break;
+      case 401:
+        dispatch(setError('API authorization failed!'));
+        break;
+      case 403:
+        dispatch(setError('Permission denied!'));
+        break;
+      case 404:
+        dispatch(setError('Data not found!'));
+        break;
+      default:
+        dispatch(setError('Failed to update data'));
+    }
   }
 };
 
 export const loadFavoriteLocations = () => (dispatch) => {
-  const favorites = JSON.parse(localStorage.getItem('favoriteLocations') || '[]');
-  dispatch(loadFavorites(favorites));
+  try {
+    const favorites = JSON.parse(localStorage.getItem('favoriteLocations') || '[]');
+    dispatch(loadFavorites(favorites));
+  } catch (err) {
+    process.env.NODE_ENV === 'development' && console.log(err);
+    switch (err?.response?.status) {
+      case 400:
+        dispatch(setError('Bad request!'));
+        break;
+      case 401:
+        dispatch(setError('API authorization failed!'));
+        break;
+      case 403:
+        dispatch(setError('Permission denied!'));
+        break;
+      case 404:
+        dispatch(setError('Data not found!'));
+        break;
+      default:
+        dispatch(setError('Failed to load data'));
+    }
+  }
 };

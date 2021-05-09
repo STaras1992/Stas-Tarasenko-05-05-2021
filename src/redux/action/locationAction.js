@@ -1,10 +1,9 @@
 import { SET_LOCATION, SET_ERROR, SET_IS_LOADING, SET_CURRENT_LOCATION } from '../actionTypes';
-// import { getLocationAutocomplete } from '../../api/AccuWeatherAPI';
 import { getMyLocation } from '../../utils/geolocation';
+import { setError } from './errorAction';
 import { getLocationByCoordinates } from '../../api/AccuWeatherAPI';
 
 const setLocation = (data) => ({ type: SET_LOCATION, payload: data });
-const setError = (errorMessage) => ({ type: SET_ERROR, payload: errorMessage });
 const setCurrentLocation = (data) => ({ type: SET_CURRENT_LOCATION, payload: data });
 const setIsLoading = (isLoading) => ({ type: SET_IS_LOADING, payload: isLoading });
 
@@ -16,8 +15,23 @@ export const updateLocation = (location) => async (dispatch) => {
     dispatch(setLocation(location));
     dispatch(setIsLoading(false));
   } catch (err) {
-    console.log(err);
-    dispatch(setError('ERROR'));
+    process.env.NODE_ENV === 'development' && console.log(err);
+    switch (err?.response?.status) {
+      case 400:
+        dispatch(setError('Bad request!'));
+        break;
+      case 401:
+        dispatch(setError('API authorization failed!'));
+        break;
+      case 403:
+        dispatch(setError('Permission denied!'));
+        break;
+      case 404:
+        dispatch(setError('Data not found!'));
+        break;
+      default:
+        dispatch(setError('Something went wrong'));
+    }
   }
 };
 
@@ -31,6 +45,7 @@ export const updateCurrentLocation = () => async (dispatch) => {
     if (process.env.REACT_APP_WEATHER_NODE_ENV === 'production') {
       console.log('production');
       const response = await getLocationByCoordinates(locationCoordinates);
+      console.log('response', response);
       if (!response.data || response.data.length === 0) return;
       dispatch(setCurrentLocation({ key: response.data.Key, name: response.data.AdministrativeArea.LocalizedName }));
     } else {
@@ -38,7 +53,22 @@ export const updateCurrentLocation = () => async (dispatch) => {
       dispatch(setCurrentLocation({ key: '215805', name: 'Tel aviv' }));
     }
   } catch (err) {
-    console.log(err);
-    dispatch(setError('ERROR'));
+    process.env.NODE_ENV === 'development' && console.log(err);
+    switch (err?.response?.status) {
+      case 400:
+        dispatch(setError('Bad request!'));
+        break;
+      case 401:
+        dispatch(setError('API authorization failed!'));
+        break;
+      case 403:
+        dispatch(setError('Permission denied!'));
+        break;
+      case 404:
+        dispatch(setError('Data not found!'));
+        break;
+      default:
+        dispatch(setError('Something went wrong'));
+    }
   }
 };

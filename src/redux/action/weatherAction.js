@@ -1,11 +1,11 @@
-import { SET_WEATHER, SET_ERROR, SET_IS_LOADING, SET_FIVE_DAYS_FORECAST } from '../actionTypes';
+import { SET_WEATHER, SET_IS_LOADING, SET_FIVE_DAYS_FORECAST } from '../actionTypes';
 import { getCurrentWeather, getFiveDayForecast } from '../../api/AccuWeatherAPI';
 import { getDayTime } from '../../utils/dateHelper';
 import { fToC, calcAverageTemperature } from '../../utils/temperatureHelper';
+import { setError } from './errorAction';
 
 const setWeather = (data) => ({ type: SET_WEATHER, payload: data });
 const setFiveDaysForecast = (data) => ({ type: SET_FIVE_DAYS_FORECAST, payload: data });
-const setError = (errorMessage) => ({ type: SET_ERROR, payload: errorMessage });
 const setIsLoading = (isLoading) => ({ type: SET_IS_LOADING, payload: isLoading });
 
 export const updateWeather = (location) => async (dispatch) => {
@@ -16,7 +16,7 @@ export const updateWeather = (location) => async (dispatch) => {
     if (process.env.REACT_APP_WEATHER_NODE_ENV === 'production') {
       console.log('production');
       const response = await getCurrentWeather(location.key);
-      console.log('updateWeather', response);
+      console.log('response', response);
       dispatch(
         setWeather({
           location: location,
@@ -42,8 +42,23 @@ export const updateWeather = (location) => async (dispatch) => {
     }
     dispatch(setIsLoading(false));
   } catch (err) {
-    console.log(err);
-    dispatch(setError('ERROR'));
+    process.env.NODE_ENV === 'development' && console.log(err);
+    switch (err?.response?.status) {
+      case 400:
+        dispatch(setError('Bad request!'));
+        break;
+      case 401:
+        dispatch(setError('API authorization failed!'));
+        break;
+      case 403:
+        dispatch(setError('Permission denied!'));
+        break;
+      case 404:
+        dispatch(setError('Data not found!'));
+        break;
+      default:
+        dispatch(setError('Something went wrong'));
+    }
   }
 };
 
@@ -55,7 +70,7 @@ export const updateFiveDaysForecast = (location) => async (dispatch) => {
     if (process.env.REACT_APP_WEATHER_NODE_ENV === 'production') {
       console.log('production');
       const response = await getFiveDayForecast(location.key);
-      // console.log(response);
+      console.log(response);
       const data = response.data.DailyForecasts.map((forecast) => ({
         location: location,
         date: forecast.Date,
@@ -118,7 +133,22 @@ export const updateFiveDaysForecast = (location) => async (dispatch) => {
     }
     dispatch(setIsLoading(false));
   } catch (err) {
-    console.log(err);
-    dispatch(setError('ERROR'));
+    process.env.NODE_ENV === 'development' && console.log(err);
+    switch (err?.response?.status) {
+      case 400:
+        dispatch(setError('Bad request!'));
+        break;
+      case 401:
+        dispatch(setError('API authorization failed!'));
+        break;
+      case 403:
+        dispatch(setError('Permission denied!'));
+        break;
+      case 404:
+        dispatch(setError('Data not found!'));
+        break;
+      default:
+        dispatch(setError('Something went wrong'));
+    }
   }
 };

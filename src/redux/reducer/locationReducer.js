@@ -2,7 +2,6 @@ import { SET_LOCATION, SET_ERROR, SET_IS_LOADING, SET_CURRENT_LOCATION } from '.
 
 const defaultState = {
   isLoading: false,
-  errorMessage: null,
   location: null,
   currentLocation: null,
 };
@@ -13,8 +12,6 @@ const locationReducer = (state = defaultState, action) => {
       return { ...state, location: { ...action.payload } };
     case SET_CURRENT_LOCATION:
       return { ...state, currentLocation: action.payload };
-    case SET_ERROR:
-      return { ...state };
     case SET_IS_LOADING:
       return {
         ...state,
