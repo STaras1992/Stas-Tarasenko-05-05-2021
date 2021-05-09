@@ -11,12 +11,9 @@ const setIsLoading = (isLoading) => ({ type: SET_IS_LOADING, payload: isLoading 
 export const updateWeather = (location) => async (dispatch) => {
   try {
     if (!location) return;
-
     dispatch(setIsLoading(true));
     if (process.env.REACT_APP_WEATHER_NODE_ENV === 'production') {
-      console.log('production');
       const response = await getCurrentWeather(location.key);
-      console.log('response', response);
       dispatch(
         setWeather({
           location: location,
@@ -28,7 +25,6 @@ export const updateWeather = (location) => async (dispatch) => {
         })
       );
     } else {
-      console.log('development');
       dispatch(
         setWeather({
           location: location,
@@ -42,7 +38,7 @@ export const updateWeather = (location) => async (dispatch) => {
     }
     dispatch(setIsLoading(false));
   } catch (err) {
-    process.env.NODE_ENV === 'development' && console.log(err);
+    process.env.REACT_APP_WEATHER_NODE_ENV === 'development' && console.log(err);
     switch (err?.response?.status) {
       case 400:
         dispatch(setError('Bad request!'));
@@ -68,9 +64,7 @@ export const updateFiveDaysForecast = (location) => async (dispatch) => {
 
     dispatch(setIsLoading(true));
     if (process.env.REACT_APP_WEATHER_NODE_ENV === 'production') {
-      console.log('production');
       const response = await getFiveDayForecast(location.key);
-      console.log(response);
       const data = response.data.DailyForecasts.map((forecast) => ({
         location: location,
         date: forecast.Date,
@@ -85,7 +79,6 @@ export const updateFiveDaysForecast = (location) => async (dispatch) => {
       }));
       dispatch(setFiveDaysForecast(data));
     } else {
-      console.log('development');
       dispatch(
         setFiveDaysForecast([
           {
@@ -133,7 +126,7 @@ export const updateFiveDaysForecast = (location) => async (dispatch) => {
     }
     dispatch(setIsLoading(false));
   } catch (err) {
-    process.env.NODE_ENV === 'development' && console.log(err);
+    process.env.REACT_APP_WEATHER_NODE_ENV === 'development' && console.log(err);
     switch (err?.response?.status) {
       case 400:
         dispatch(setError('Bad request!'));

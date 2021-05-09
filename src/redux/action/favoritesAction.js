@@ -24,7 +24,7 @@ export const addFavoriteLocation = (data) => async (dispatch) => {
     dispatch(updateFavoriteLocation(data));
     setIsLoading(false);
   } catch (err) {
-    process.env.NODE_ENV === 'development' && console.log(err);
+    process.env.REACT_APP_WEATHER_NODE_ENV === 'development' && console.log(err);
     switch (err?.response?.status) {
       case 400:
         dispatch(setError('Bad request!'));
@@ -53,7 +53,7 @@ export const removeFavoriteLocation = (favoriteLocation) => async (dispatch) => 
     dispatch(removeFavorite(favoriteLocation));
     setIsLoading(false);
   } catch (err) {
-    process.env.NODE_ENV === 'development' && console.log(err);
+    process.env.REACT_APP_WEATHER_NODE_ENV === 'development' && console.log(err);
     switch (err?.response?.status) {
       case 400:
         dispatch(setError('Bad request!'));
@@ -78,9 +78,7 @@ Update location from favorites list with newest weather data
 export const updateFavoriteLocation = (favoriteLocation) => async (dispatch) => {
   try {
     if (process.env.REACT_APP_WEATHER_NODE_ENV === 'production') {
-      console.log('production');
       const response = await getCurrentWeather(favoriteLocation?.key || favoriteLocation.location.key);
-      console.log('response', response);
       dispatch(
         updateFavorite({
           location: favoriteLocation,
@@ -92,7 +90,6 @@ export const updateFavoriteLocation = (favoriteLocation) => async (dispatch) => 
         })
       );
     } else {
-      console.log('development');
       dispatch(
         updateFavorite({
           location: favoriteLocation,
@@ -105,7 +102,7 @@ export const updateFavoriteLocation = (favoriteLocation) => async (dispatch) => 
       );
     }
   } catch (err) {
-    process.env.NODE_ENV === 'development' && console.log(err);
+    process.env.REACT_APP_WEATHER_NODE_ENV === 'development' && console.log(err);
     switch (err?.response?.status) {
       case 400:
         dispatch(setError('Bad request!'));
@@ -127,10 +124,9 @@ export const updateFavoriteLocation = (favoriteLocation) => async (dispatch) => 
 
 export const updateAllFavoriteLocations = (favoriteLocations) => async (dispatch) => {
   try {
-    console.log(favoriteLocations);
     favoriteLocations.forEach((location) => dispatch(updateFavoriteLocation(location)));
   } catch (err) {
-    process.env.NODE_ENV === 'development' && console.log(err);
+    process.env.REACT_APP_WEATHER_NODE_ENV === 'development' && console.log(err);
     switch (err?.response?.status) {
       case 400:
         dispatch(setError('Bad request!'));
@@ -155,7 +151,7 @@ export const loadFavoriteLocations = () => (dispatch) => {
     const favorites = JSON.parse(localStorage.getItem('favoriteLocations') || '[]');
     dispatch(loadFavorites(favorites));
   } catch (err) {
-    process.env.NODE_ENV === 'development' && console.log(err);
+    process.env.REACT_APP_WEATHER_NODE_ENV === 'development' && console.log(err);
     switch (err?.response?.status) {
       case 400:
         dispatch(setError('Bad request!'));

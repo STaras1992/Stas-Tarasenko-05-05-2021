@@ -178,7 +178,6 @@ const WeatherWidget = () => {
   };
 
   useEffect(() => {
-    console.log('SELECTED  LOCATION EFFECT', selectedLocation);
     if (selectedLocation) {
       dispatch(updateWeather(selectedLocation));
       dispatch(updateFiveDaysForecast(selectedLocation));

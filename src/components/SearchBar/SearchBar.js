@@ -30,7 +30,7 @@ const SearchBar = ({ onLocationChange }) => {
   };
 
   const loadLocationSuggestions = async (inputText, callback) => {
-    if (process.env.NODE_ENV !== 'production') {
+    if (process.env.REACT_APP_WEATHER_NODE_ENV === 'production') {
       setIsLoading(true);
       const response = await getLocationAutocomplete(inputText);
       if (!response) {

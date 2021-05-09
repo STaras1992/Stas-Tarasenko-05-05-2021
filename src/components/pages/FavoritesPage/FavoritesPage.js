@@ -77,7 +77,6 @@ const FavoritesPage = () => {
   }, [favoriteLocations]);
 
   useEffect(() => {
-    console.log(favoriteLocations);
     favoriteLocations.length > 0 && dispatch(updateAllFavoriteLocations(favoriteLocations));
   }, []);
 

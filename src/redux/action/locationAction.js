@@ -13,7 +13,7 @@ export const updateLocation = (location) => async (dispatch) => {
     dispatch(setLocation(location));
     dispatch(setIsLoading(false));
   } catch (err) {
-    process.env.NODE_ENV === 'development' && console.log(err);
+    process.env.REACT_APP_WEATHER_NODE_ENV === 'development' && console.log(err);
     switch (err?.response?.status) {
       case 400:
         dispatch(setError('Bad request!'));
@@ -41,19 +41,16 @@ export const updateCurrentLocation = () => async (dispatch) => {
       locationCoordinates = { lat: '32.109333', lon: '34.855499' };
     }
     if (process.env.REACT_APP_WEATHER_NODE_ENV === 'production') {
-      console.log('production');
       const response = await getLocationByCoordinates(locationCoordinates);
-      console.log('response', response);
       if (!response.data || response.data.length === 0) return;
       dispatch(setCurrentLocation({ key: response.data.Key, name: response.data.AdministrativeArea.LocalizedName }));
       dispatch(updateLocation({ key: response.data.Key, name: response.data.AdministrativeArea.LocalizedName }));
     } else {
-      console.log('development');
       dispatch(setCurrentLocation({ key: '215805', name: 'Tel aviv' }));
       dispatch(updateLocation({ key: '215805', name: 'Tel aviv' }));
     }
   } catch (err) {
-    process.env.NODE_ENV === 'development' && console.log(err);
+    process.env.REACT_APP_WEATHER_NODE_ENV === 'development' && console.log(err);
     switch (err?.response?.status) {
       case 400:
         dispatch(setError('Bad request!'));

@@ -1,41 +1,53 @@
 import axios from 'axios';
 
 export const getLocationAutocomplete = async (text) => {
-  try {
-    return await axios.get('http://dataservice.accuweather.com/locations/v1/cities/autocomplete', {
-      params: { apikey: process.env.REACT_APP_WEATHER_API_KEY, q: text },
-    });
-  } catch (err) {
-    console.log(err);
-  }
+  // if (process.env.REACT_APP_WEATHER_NODE_ENV === 'production')
+  //   return await axios.get(
+  //     'https://corsanywhere.herokuapp.com//https://dataservice.accuweather.com/locations/v1/cities/autocomplete',
+  //     {
+  //       params: { apikey: process.env.REACT_APP_WEATHER_API_KEY, q: text },
+  //     }
+  //   );
+  return await axios.get('http://dataservice.accuweather.com/locations/v1/cities/autocomplete', {
+    params: { apikey: process.env.REACT_APP_WEATHER_API_KEY, q: text },
+  });
 };
 
 export const getLocationByCoordinates = async (coordinates) => {
-  try {
-    return await axios.get('http://dataservice.accuweather.com/locations/v1/cities/geoposition/search', {
-      params: { apikey: process.env.REACT_APP_WEATHER_API_KEY, q: `${coordinates.lat},${coordinates.lon}` },
-    });
-  } catch (err) {
-    console.log(err);
-  }
+  // if (process.env.REACT_APP_WEATHER_NODE_ENV === 'production')
+  //   return await axios.get(
+  //     'https://corsanywhere.herokuapp.com//https://dataservice.accuweather.com/locations/v1/cities/geoposition/search',
+  //     {
+  //       params: { apikey: process.env.REACT_APP_WEATHER_API_KEY, q: `${coordinates.lat},${coordinates.lon}` },
+  //     }
+  //   );
+  return await axios.get('http://dataservice.accuweather.com/locations/v1/cities/geoposition/search', {
+    params: { apikey: process.env.REACT_APP_WEATHER_API_KEY, q: `${coordinates.lat},${coordinates.lon}` },
+  });
 };
 
 export const getCurrentWeather = async (locationKey) => {
-  try {
-    return await axios.get(`http://dataservice.accuweather.com/currentconditions/v1/${locationKey}`, {
-      params: { apikey: process.env.REACT_APP_WEATHER_API_KEY },
-    });
-  } catch (err) {
-    console.log(err);
-  }
+  // if (process.env.REACT_APP_WEATHER_NODE_ENV === 'production')
+  //   return await axios.get(
+  //     `https://corsanywhere.herokuapp.com//https://dataservice.accuweather.com/currentconditions/v1/${locationKey}`,
+  //     {
+  //       params: { apikey: process.env.REACT_APP_WEATHER_API_KEY },
+  //     }
+  //   );
+  return await axios.get(`http://dataservice.accuweather.com/currentconditions/v1/${locationKey}`, {
+    params: { apikey: process.env.REACT_APP_WEATHER_API_KEY },
+  });
 };
 
 export const getFiveDayForecast = async (locationKey) => {
-  try {
-    return await axios.get(`http://dataservice.accuweather.com/forecasts/v1/daily/5day/${locationKey}`, {
-      params: { apikey: process.env.REACT_APP_WEATHER_API_KEY },
-    });
-  } catch (err) {
-    console.log(err);
-  }
+  // if (process.env.REACT_APP_WEATHER_NODE_ENV === 'production')
+  //   return await axios.get(
+  //     `https://corsanywhere.herokuapp.com//https://dataservice.accuweather.com/forecasts/v1/daily/5day/${locationKey}`,
+  //     {
+  //       params: { apikey: process.env.REACT_APP_WEATHER_API_KEY },
+  //     }
+  //   );
+  return await axios.get(`http://dataservice.accuweather.com/forecasts/v1/daily/5day/${locationKey}`, {
+    params: { apikey: process.env.REACT_APP_WEATHER_API_KEY },
+  });
 };
